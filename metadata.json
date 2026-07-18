@@ -1,0 +1,8 @@
+{
+  "name": "Zone Industrielle Sidi Bou Othmane",
+  "description": "Plateforme Numérique Officielle et plan interactif de la Zone Industrielle Sidi Bou Othmane.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
