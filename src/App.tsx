@@ -167,7 +167,7 @@ export default function App() {
       whatsapp: "https://wa.me/212600000000",
       mapsLocation: "https://goo.gl/maps/sidibouothmane",
       qrCodeUrl: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80&w=200",
-      heroTitleFR: "Plateforme Digitale de la Zone Industrielle",
+      heroTitleFR: "Plateforme Digitale de la Zone Industrielle Sidi Bou Othmane",
       heroTitleAR: "المنصة الرقمية للمنطقة الصناعية سيدي بوعثمان",
       heroTitleEN: "Digital Platform of the Industrial Zone",
       heroSubtitleFR: "Découvrez notre plan cadastral interactif complet, explorez les opportunités de lots fonciers disponibles et accédez directement aux fiches d'activités des entreprises installées.",
