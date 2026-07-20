@@ -18,18 +18,22 @@ export interface LotGeometry {
 export const lotGeometry: Record<number, LotGeometry> = {
   // --- BLOC : rangée des lots 3 à 8 (bas du plan, au-dessus de l'espace vert) ---
   // Tracé depuis le crop (370,680)-(800,800) du JPG original (1200x896 px)
-  8: { x: 31.67, y: 77.0, width: 4.6, height: 12.5 },
-  7: { x: 37.36, y: 77.0, width: 4.6, height: 12.5 },
-  6: { x: 43.06, y: 77.0, width: 4.6, height: 12.5 },
-  5: { x: 48.75, y: 77.0, width: 4.6, height: 12.5 },
+  8: { x: 32.67, y: 74.4, width: 4.6, height: 12.5 },
+  7: { x: 37.90, y: 74.4, width: 4.4, height: 12.5 },
+  6: { x: 42.80, y: 74.4, width: 4.3, height: 12.5 },
+  5: { x: 50.40, y: 74.4, width: 4.6, height: 12.5 },
   4: { x: 55.30, y: 74.4, width: 4.6, height: 12.5 },
   3: { x: 60.30, y: 74.4, width: 4.6, height: 12.5 },
     // --- BLOC : lots 15,16,17,18 ---
   15: { x: 32.70, y: 64.90, width: 7.00, height: 8.80 },
-  16: { x: 41.50, y: 61.80, width: 7.00, height: 8.80 },
-  17: { x: 51.90, y: 61.80, width: 7.00, height: 8.80 },
-  18: { x: 61.80, y: 61.80, width: 7.00, height: 8.80 },
-
+  16: { x: 40.20, y: 64.90, width: 7.00, height: 8.80 },
+  17: { x: 50.50, y: 64.90, width: 7.00, height: 8.80 },
+  18: { x: 58.00, y: 64.90, width: 7.00, height: 8.80 },
+  // --- BLOC : lots 24,25,26,27 ---
+  27: { x: 32.70, y: 54.40, width: 6.50, height: 9.90 },
+  26: { x: 40.20, y: 54.40, width: 6.80, height: 9.90 },
+  25: { x: 50.49, y: 54.40, width: 7.20, height: 9.90 },
+  24: { x: 58.50, y: 54.40, width: 6.50, height: 9.90 },
   // --- Prochains blocs à tracer (dans l'ordre) ---
   // TODO: 15,16,17,18
   // TODO: 27,26 / 25,24 (avec la mosquée)
