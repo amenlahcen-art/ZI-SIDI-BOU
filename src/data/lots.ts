@@ -1,4 +1,5 @@
 import { Lot, LotStatus } from "../types";
+import { lotGeometry } from "./lotGeometry";
 
 // Generates the 361 lots deterministically with the precise status distribution:
 // Total: 361
@@ -305,6 +306,11 @@ export function generateLots(): Lot[] {
     const lotLng = bounds.west + (lotCenterX / 100) * (bounds.east - bounds.west);
     const lotLat = bounds.north - (lotCenterY / 100) * (bounds.north - bounds.south);
 
+    // Utilise la géométrie réelle si elle existe, sinon garde le calcul procédural existant
+const finalX = lotGeometry[id]?.x ?? x;
+const finalY = lotGeometry[id]?.y ?? y;
+const finalWidth = lotGeometry[id]?.width ?? cellW;
+const finalHeight = lotGeometry[id]?.height ?? cellH;
     lots.push({
       id,
       number: id.toString(),
@@ -322,10 +328,10 @@ export function generateLots(): Lot[] {
       logoText,
       contact,
       gallery,
-      x,
-      y,
-      width: cellW,
-      height: cellH,
+      x: finalX,
+      y: finalY,
+      width: finalWidth,
+      height: finalHeight,
       lat: lotLat,
       lng: lotLng
     });
@@ -347,5 +353,8 @@ export function generateLots(): Lot[] {
     { available: 0, occupied: 0, reserved: 0, under_construction: 0, equipment: 0 }
   );
 
-  return lots;
+  // FILTRE TEMPORAIRE DE TEST : n'affiche que les lots déjà tracés avec la vraie géométrie
+  // (à retirer une fois tous les 361 lots tracés)
+  return lots.filter(lot => lotGeometry[lot.id] !== undefined);
 }
+
