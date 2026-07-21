@@ -80,10 +80,13 @@ export default function AdminDashboard({
   const isRtl = language === "AR";
 
   // Role capability indicators
-  const isSuperAdmin = currentUser?.role === "Super Admin";
-  const isReadOnly = currentUser?.role === "Viewer";
-  const canEditEverything = currentUser?.role === "Super Admin" || currentUser?.role === "Admin";
-  const canEditNewsAndEvents = currentUser?.role === "Super Admin" || currentUser?.role === "Admin" || currentUser?.role === "Editor";
+const isSuperAdmin = currentUser?.role === "Super Admin";
+const isAdmin = currentUser?.role === "Admin";
+const isEditor = currentUser?.role === "Editor";
+const isViewer = currentUser?.role === "Viewer";
+
+const canEditEverything = isSuperAdmin || isAdmin;
+const canEditNewsAndEvents = isSuperAdmin || isAdmin || isEditor;
 
   // Sidebar navigation tab: "dashboard" | "lots" | "companies" | "news" | "events" | "contacts" | "gallery" | "settings"
   const [adminTab, setAdminTab] = useState<string>("dashboard");
@@ -91,6 +94,7 @@ export default function AdminDashboard({
 
   // Search and Filter states for Lots / Companies
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [companySearch, setCompanySearch] = useState<string>("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [filterTranche, setFilterTranche] = useState<string>("all");
 
@@ -314,16 +318,18 @@ export default function AdminDashboard({
     return lots.filter((l) => l.companyName);
   }, [lots]);
 
-  const filteredCompanyLots = useMemo(() => {
-    if (!searchQuery) return companyLots;
-    const query = searchQuery.toLowerCase().trim();
-    return companyLots.filter(
-      (l) =>
-        l.companyName?.toLowerCase().includes(query) ||
-        l.number.includes(query) ||
-        l.sector?.toLowerCase().includes(query)
-    );
-  }, [companyLots, searchQuery]);
+const filteredCompanyLots = useMemo(() => {
+  if (!companySearch.trim()) return companyLots;
+
+  const query = companySearch.toLowerCase().trim();
+
+  return companyLots.filter(
+    (l) =>
+      l.companyName?.toLowerCase().includes(query) ||
+      l.number.includes(query) ||
+      l.sector?.toLowerCase().includes(query)
+  );
+}, [companyLots, companySearch]);
 
   // --- ACTIONS ---
 
@@ -965,15 +971,22 @@ export default function AdminDashboard({
             </button>
 
             {/* News */}
-            <button
-              onClick={() => { setAdminTab("news"); setMobileMenuOpen(false); }}
-              className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
-                adminTab === "news" ? "bg-blue-600 text-white shadow-md shadow-blue-500/10" : "text-slate-400 hover:text-white hover:bg-slate-800"
-              }`}
-            >
-              <Newspaper className="w-4 h-4 shrink-0" />
-              <span>{isRtl ? "إدارة الأخبار والمستجدات" : "Publications / Actus"}</span>
-            </button>
+            {canEditNewsAndEvents && (
+  <button
+    onClick={() => {
+      setAdminTab("news");
+      setMobileMenuOpen(false);
+    }}
+    className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+      adminTab === "news"
+        ? "bg-blue-600 text-white shadow-md shadow-blue-500/10"
+        : "text-slate-400 hover:text-white hover:bg-slate-800"
+    }`}
+  >
+    <Newspaper className="w-4 h-4 shrink-0" />
+    <span>{isRtl ? "إدارة الأخبار" : "Gestion de l'actualité"}</span>
+  </button>
+)}
 
             {/* Events */}
             <button
@@ -987,22 +1000,30 @@ export default function AdminDashboard({
             </button>
 
             {/* Contacts / Inbox */}
-            <button
-              onClick={() => { setAdminTab("contacts"); setMobileMenuOpen(false); }}
-              className={`flex items-center justify-between py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
-                adminTab === "contacts" ? "bg-blue-600 text-white shadow-md shadow-blue-500/10" : "text-slate-400 hover:text-white hover:bg-slate-800"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 shrink-0" />
-                <span>{isRtl ? "طلبات الاستثمار الواردة" : "Demandes reçues"}</span>
-              </div>
-              {stats.activeInquiries > 0 && (
-                <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-bounce">
-                  {stats.activeInquiries}
-                </span>
-              )}
-            </button>
+            {canEditNewsAndEvents && (
+  <button
+    onClick={() => {
+      setAdminTab("contacts");
+      setMobileMenuOpen(false);
+    }}
+    className={`flex items-center justify-between py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+      adminTab === "contacts"
+        ? "bg-blue-600 text-white shadow-md shadow-blue-500/10"
+        : "text-slate-400 hover:text-white hover:bg-slate-800"
+    }`}
+  >
+    <div className="flex items-center gap-3">
+      <Mail className="w-4 h-4 shrink-0" />
+      <span>{isRtl ? "طلبات الاستثمار الواردة" : "Demandes reçues"}</span>
+    </div>
+
+    {stats.activeInquiries > 0 && (
+      <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full animate-bounce">
+        {stats.activeInquiries}
+      </span>
+    )}
+  </button>
+)}
 
             {/* Gallery */}
             <button
@@ -1015,29 +1036,42 @@ export default function AdminDashboard({
               <span>{isRtl ? "معرض الصور والوسائط" : "Galerie Média"}</span>
             </button>
 
-            {/* Settings */}
-            <button
-              onClick={() => { setAdminTab("settings"); setMobileMenuOpen(false); }}
-              className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
-                adminTab === "settings" ? "bg-blue-600 text-white shadow-md shadow-blue-500/10" : "text-slate-400 hover:text-white hover:bg-slate-800"
-              }`}
-            >
-              <SettingsIcon className="w-4 h-4 shrink-0" />
-              <span>{isRtl ? "إعدادات المنصة العامة" : "Configuration Générale"}</span>
-            </button>
+            {/* Settings (Super Admin only) */}
+{isSuperAdmin && (
+  <button
+    onClick={() => {
+      setAdminTab("settings");
+      setMobileMenuOpen(false);
+    }}
+    className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+      adminTab === "settings"
+        ? "bg-blue-600 text-white shadow-md shadow-blue-500/10"
+        : "text-slate-400 hover:text-white hover:bg-slate-800"
+    }`}
+  >
+    <SettingsIcon className="w-4 h-4 shrink-0" />
+    <span>{isRtl ? "إعدادات المنصة العامة" : "Configuration Générale"}</span>
+  </button>
+)}
 
-            {/* Users & Roles (Super Admin only) */}
-            {isSuperAdmin && (
-              <button
-                onClick={() => { setAdminTab("users"); setMobileMenuOpen(false); }}
-                className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
-                  adminTab === "users" ? "bg-blue-600 text-white shadow-md shadow-blue-500/10" : "text-slate-400 hover:text-white hover:bg-slate-800"
-                }`}
-              >
-                <Users className="w-4 h-4 shrink-0" />
-                <span>{isRtl ? "إدارة المستخدمين والأدوار" : "Habilitations & Rôles"}</span>
-              </button>
-            )}
+{/* Users & Roles (Super Admin only) */}
+{isSuperAdmin && (
+  <button
+    onClick={() => {
+      setAdminTab("users");
+      setMobileMenuOpen(false);
+    }}
+    className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+      adminTab === "users"
+        ? "bg-blue-600 text-white shadow-md shadow-blue-500/10"
+        : "text-slate-400 hover:text-white hover:bg-slate-800"
+    }`}
+  >
+    <Users className="w-4 h-4 shrink-0" />
+    <span>{isRtl ? "إدارة المستخدمين والأدوار" : "Habilitations & Rôles"}</span>
+  </button>
+)}
+
           </nav>
         </div>
 
@@ -1314,12 +1348,14 @@ export default function AdminDashboard({
                         <td className="p-3 text-slate-500">{lot.road}</td>
                         <td className="p-3 text-slate-500">{lot.situation}</td>
                         <td className="p-3 text-center">
-                          <button
-                            onClick={() => handleEditLotClick(lot)}
-                            className="p-1.5 bg-slate-50 hover:bg-slate-100 border border-gray-200 text-blue-600 rounded-lg"
-                          >
-                            <Edit className="w-3.5 h-3.5" />
-                          </button>
+                         {canEditEverything && (
+  <button
+    onClick={() => handleEditLotClick(lot)}
+    className="..."
+  >
+    <Edit className="w-4 h-4" />
+  </button>
+)}
                         </td>
                       </tr>
                     ))}
@@ -1337,6 +1373,7 @@ export default function AdminDashboard({
                   <h2 className="text-xl font-extrabold text-slate-900">Annuaires des Entreprises Installées</h2>
                   <p className="text-xs text-slate-500 mt-0.5">Associez des fiches d'activité, catalogues PDF et réseaux sociaux aux parcelles occupées.</p>
                 </div>
+                { canEditEverything && (
                 <button
                   onClick={handleNewCompanyClick}
                   className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2.5 px-4 rounded-xl flex items-center gap-1.5"
@@ -1344,11 +1381,23 @@ export default function AdminDashboard({
                   <Plus className="w-4 h-4" />
                   Installer une société
                 </button>
+                )}
               </div>
+              <div className="relative mb-5">
+  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+
+  <input
+    type="text"
+    placeholder="Rechercher par numéro de lot ou nom de société..."
+    value={companySearch}
+    onChange={(e) => setCompanySearch(e.target.value)}
+    className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+  />
+</div>
 
               {/* Companies Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {companyLots.map((l) => (
+                {filteredCompanyLots.map((l) => (
                   <div key={l.id} className="p-5 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col justify-between gap-4 text-left">
                     <div>
                       <div className="flex items-start justify-between">
@@ -1362,12 +1411,22 @@ export default function AdminDashboard({
                           </div>
                         </div>
                         <div className="flex gap-1">
-                          <button onClick={() => handleEditCompanyClick(l)} className="p-1.5 bg-white border border-slate-200 text-blue-600 rounded-lg">
-                            <Edit className="w-3.5 h-3.5" />
-                          </button>
-                          <button onClick={() => handleDeleteCompany(l.id)} className="p-1.5 bg-white border border-slate-200 text-red-600 rounded-lg">
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
+                          {canEditEverything && (
+  <button
+    onClick={() => handleEditCompanyClick(l)}
+    className="p-1.5 bg-white border border-slate-200 text-blue-600 rounded-lg"
+  >
+    <Edit className="w-3.5 h-3.5" />
+  </button>
+)}
+                          {canEditEverything && (
+  <button
+    onClick={() => handleDeleteCompany(l.id)}
+    className="p-1.5 bg-white border border-slate-200 text-red-600 rounded-lg"
+  >
+    <Trash2 className="w-3.5 h-3.5" />
+  </button>
+)}
                         </div>
                       </div>
                       <p className="text-xs text-slate-500 mt-3 line-clamp-2 leading-relaxed">"{l.description || "Aucune description fournie."}"</p>

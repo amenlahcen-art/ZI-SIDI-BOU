@@ -64,7 +64,7 @@ export default function HeroBanner({
     <div className="relative rounded-3xl overflow-hidden mb-8 border border-slate-200/60 shadow-xl bg-slate-900 text-white min-h-[500px] flex items-center">
       {/* Background image overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out brightness-[0.32]"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out brightness-[0.50]"
         style={{ backgroundImage: `url(${settings.bannerImage || "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=1200"})` }}
       />
 
@@ -82,7 +82,7 @@ export default function HeroBanner({
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 border border-blue-400/30 px-3.5 py-1.5 rounded-full text-xs font-bold w-fit"
           >
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-yellow-400 animate-ping" />
             <span className="uppercase tracking-widest text-[10px]">
               {language === "AR" ? "المملكة المغربية • وزارة الصناعة" : language === "EN" ? "Kingdom of Morocco • Ministry of Industry" : "Royaume du Maroc • Ministère de l'Industrie"}
             </span>

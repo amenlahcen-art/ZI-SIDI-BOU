@@ -177,13 +177,13 @@ export function generateLots(): Lot[] {
 
     if (id >= 231) {
       tranche = "TR III"; // Left
-      trancheXOffset = 3.5;
+      trancheXOffset = 35.5;
       cols = 10;
       localCol = (id - 231) % cols;
       localRow = Math.floor((id - 231) / cols);
     } else if (id >= 101) {
       tranche = "TR II"; // Center
-      trancheXOffset = 35.5;
+      trancheXOffset = 3.5;
       cols = 10;
       localCol = (id - 101) % cols;
       localRow = Math.floor((id - 101) / cols);
@@ -307,10 +307,12 @@ export function generateLots(): Lot[] {
     const lotLat = bounds.north - (lotCenterY / 100) * (bounds.north - bounds.south);
 
     // Utilise la géométrie réelle si elle existe, sinon garde le calcul procédural existant
-const finalX = lotGeometry[id]?.x ?? x;
-const finalY = lotGeometry[id]?.y ?? y;
-const finalWidth = lotGeometry[id]?.width ?? cellW;
-const finalHeight = lotGeometry[id]?.height ?? cellH;
+const geometry = lotGeometry[id];
+
+const finalX = geometry?.x ?? x;
+const finalY = geometry?.y ?? y;
+const finalWidth = geometry?.width ?? cellW;
+const finalHeight = geometry?.height ?? cellH;
     lots.push({
       id,
       number: id.toString(),
@@ -357,4 +359,3 @@ const finalHeight = lotGeometry[id]?.height ?? cellH;
   // (à retirer une fois tous les 361 lots tracés)
   return lots.filter(lot => lotGeometry[lot.id] !== undefined);
 }
-
