@@ -3,7 +3,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { ZoomIn, ZoomOut, Maximize, HelpCircle, Eye, EyeOff, Sliders, Info, ShieldAlert } from "lucide-react";
 import { Lot, LotStatus, Language } from "../types";
 import { translations } from "../data/translations";
-import masterPlanImg from "../assets/images/sidi_bou_othmane_master_plan_1784202733806.jpg";
+import masterPlanImg from "../assets/images/plan-optimise.svg";
 import { motion, AnimatePresence } from "motion/react";
 
 interface MapProps {

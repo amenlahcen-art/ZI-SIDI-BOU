@@ -25,30 +25,16 @@ export const lotGeometry: Record<number, LotGeometry> = {
   4: { x: 55.30, y: 74.4, width: 4.6, height: 12.5 },
   3: { x: 60.30, y: 74.4, width: 4.6, height: 12.5 },
     // --- BLOC : lots 15,16,17,18 ---
-  15: { x: 32.70, y: 64.90, width: 7.00, height: 8.80 },
-  16: { x: 40.20, y: 64.90, width: 7.00, height: 8.80 },
-  17: { x: 50.50, y: 64.90, width: 7.00, height: 8.80 },
-  18: { x: 58.00, y: 64.90, width: 7.00, height: 8.80 },
+  15: { x: 32.70, y: 59.30, width: 7.00, height: 7.80 },
+  16: { x: 40.20, y: 59.30, width: 7.00, height: 7.80 },
+  17: { x: 50.50, y: 59.30, width: 7.00, height: 7.80 },
+  18: { x: 58.00, y: 59.30, width: 7.00, height: 7.80 },
   // --- BLOC : lots 24,25,26,27 ---
-  27: { x: 32.70, y: 54.40, width: 6.50, height: 9.90 },
-  26: { x: 40.00, y: 54.40, width: 6.80, height: 9.90 },
-  25: { x: 50.49, y: 54.40, width: 7.20, height: 9.90 },
-  24: { x: 58.50, y: 54.40, width: 6.50, height: 9.90 },
-    // --- BLOC : lots 41,42,43,44,45,46 ---
-  41: { x: 37.10, y: 42.50, width: 3.80, height: 7.90 },
-  42: { x: 41.50, y: 42.50, width: 3.80, height: 7.90 },
-  43: { x: 45.90, y: 42.50, width: 5.80, height: 4.80 },
-  44: { x: 52.30, y: 42.50, width: 3.80, height: 7.90 },
-  45: { x: 56.70, y: 42.50, width: 3.80, height: 7.90 },
-  46: { x: 61.40, y: 42.50, width: 3.80, height: 7.90 },
-  // --- BLOC : lots 59,60,61,62,63,64,65 ---
-  65: { x: 32.30, y: 33.80, width: 4.10, height: 7.70 },
-  64: { x: 37.25, y: 33.80, width: 4.10, height: 7.70 },
-  63: { x: 41.90, y: 33.80, width: 4.10, height: 7.70 },
-  62: { x: 46.80, y: 33.80, width: 4.10, height: 7.70 },
-  61: { x: 51.60, y: 33.80, width: 4.10, height: 7.70 },
-  60: { x: 56.35, y: 33.80, width: 4.10, height: 7.70 },
-  59: { x: 61.20, y: 33.80, width: 4.10, height: 7.70 },
+  27: { x: 32.67, y: 48.70, width: 5.83, height: 9.30 },
+  26: { x: 38.50, y: 48.70, width: 5.83, height: 9.30 },
+  25: { x: 51.42, y: 48.70, width: 6.75, height: 9.30 },
+  24: { x: 58.17, y: 48.70, width: 6.83, height: 9.30 },
+
   // --- Prochains blocs à tracer (dans l'ordre) ---
   // TODO: 15,16,17,18
   // TODO: 27,26 / 25,24 (avec la mosquée)
