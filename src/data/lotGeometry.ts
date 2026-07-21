@@ -18,22 +18,22 @@ export interface LotGeometry {
 export const lotGeometry: Record<number, LotGeometry> = {
   // --- BLOC : rangée des lots 3 à 8 (bas du plan, au-dessus de l'espace vert) ---
   // Tracé depuis le crop (370,680)-(800,800) du JPG original (1200x896 px)
-  8: { x: 32.67, y: 74.4, width: 4.6, height: 12.5 },
-  7: { x: 37.90, y: 74.4, width: 4.4, height: 12.5 },
-  6: { x: 42.80, y: 74.4, width: 4.3, height: 12.5 },
-  5: { x: 50.40, y: 74.4, width: 4.6, height: 12.5 },
-  4: { x: 55.30, y: 74.4, width: 4.6, height: 12.5 },
-  3: { x: 60.30, y: 74.4, width: 4.6, height: 12.5 },
+  8: { x: 37.50, y: 68.4, width: 3.5, height: 10.8 },
+  7: { x: 41.80, y: 68.4, width: 3.3, height: 10.8 },
+  6: { x: 45.60, y: 68.4, width: 3.3, height: 10.8 },
+  5: { x: 51.70, y: 68.4, width: 3.5, height: 10.8 },
+  4: { x: 55.75, y: 68.4, width: 3.3, height: 10.8 },
+  3: { x: 59.70, y: 68.4, width: 3.7, height: 10.8 },
     // --- BLOC : lots 15,16,17,18 ---
-  15: { x: 32.70, y: 59.30, width: 7.00, height: 7.80 },
-  16: { x: 40.20, y: 59.30, width: 7.00, height: 7.80 },
-  17: { x: 50.50, y: 59.30, width: 7.00, height: 7.80 },
-  18: { x: 58.00, y: 59.30, width: 7.00, height: 7.80 },
+  15: { x: 37.40, y: 60.50, width: 5.50, height: 7.10 },
+  16: { x: 43.50, y: 60.50, width: 5.50, height: 7.10 },
+  17: { x: 51.70, y: 60.50, width: 5.50, height: 7.10 },
+  18: { x: 57.90, y: 60.50, width: 5.50, height: 7.10 },
   // --- BLOC : lots 24,25,26,27 ---
-  27: { x: 32.67, y: 48.70, width: 5.83, height: 9.30 },
-  26: { x: 38.50, y: 48.70, width: 5.83, height: 9.30 },
-  25: { x: 51.42, y: 48.70, width: 6.75, height: 9.30 },
-  24: { x: 58.17, y: 48.70, width: 6.83, height: 9.30 },
+  27: { x: 37.40, y: 51.30, width: 5.30, height: 8.30 },
+  26: { x: 43.30, y: 51.30, width: 5.60, height: 8.30 },
+  25: { x: 51.70, y: 51.30, width: 5.75, height: 8.30 },
+  24: { x: 58.17, y: 51.30, width: 5.25, height: 8.30 },
 
   // --- Prochains blocs à tracer (dans l'ordre) ---
   // TODO: 15,16,17,18
