@@ -310,6 +310,21 @@ export function generateLots(): Lot[] {
 const geometry = lotGeometry[id];
 
 const finalX = geometry?.x ?? x;
+// Recalcule la tranche d'après la vraie position (finalX), pas d'après l'ID
+// (nécessaire car les lots tracés manuellement ne suivent pas le découpage par ID)
+// Calcule la position réelle en x, y compris pour les lots en polygone (points)
+const geometryForTranche = lotGeometry[id];
+const effectiveX = geometryForTranche?.points && geometryForTranche.points.length > 0
+  ? geometryForTranche.points.reduce((sum, p) => sum + p.x, 0) / geometryForTranche.points.length
+  : finalX;
+
+if (effectiveX < 30.8) {
+  tranche = "TR III";
+} else if (effectiveX < 66.8) {
+  tranche = "TR II";
+} else {
+  tranche = "TR I";
+}
 const finalY = geometry?.y ?? y;
 const finalWidth = geometry?.width ?? cellW;
 const finalHeight = geometry?.height ?? cellH;
@@ -356,27 +371,7 @@ const finalHeight = geometry?.height ?? cellH;
     { available: 0, occupied: 0, reserved: 0, under_construction: 0, equipment: 0 }
   );
 // --- Équipements spéciaux hors numérotation 1-361 (mosquée, protection civile, STEG...) ---
-  const specialGeometry = lotGeometry[9001];
-  if (specialGeometry) {
-    lots.push({
-      id: 9001,
-      number: "PC2",
-      status: LotStatus.EQUIPMENT,
-      tranche: "TR II", // à ajuster selon la vraie tranche où se trouve le bâtiment
-      sector: "Équipement",
-      surface: 0,
-      road: "",
-      situation: "Standard",
-      price: "",
-      points: specialGeometry.points,
-      x: specialGeometry.x ?? 0,
-      y: specialGeometry.y ?? 0,
-      width: specialGeometry.width ?? 0,
-      height: specialGeometry.height ?? 0,
-      lat: 0,
-      lng: 0,
-    });
-  }
+
   const geometry9004 = lotGeometry[9004];
   if (geometry9004) {
     lots.push({
@@ -406,7 +401,7 @@ const finalHeight = geometry?.height ?? cellH;
       status: LotStatus.EQUIPMENT,
       tranche: "TR II",
       sector: "Équipement",
-      surface: 0,
+      surface: 2457,
       road: "",
       situation: "Standard",
       price: "",

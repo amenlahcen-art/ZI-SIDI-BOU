@@ -72,17 +72,19 @@ export const lotGeometry: Record<number, LotGeometry> = {
   61: { x: 52.60, y: 34.00, width: 3.20, height: 6.50 },
   60: { x: 56.50, y: 34.00, width: 3.20, height: 6.50 },
   59: { x: 60.32, y: 34.00, width: 3.20, height: 6.50 },
+// --- BLOC : lots 90 à 99 (interpolé entre les 2 ancres 90 et 99) ---
+  90: { x: 37.10, y: 26.70, width: 2.00, height: 4.80 },
+  91: { x: 39.70, y: 26.70, width: 2.00, height: 4.80 },
+  92: { x: 42.20, y: 26.70, width: 2.00, height: 4.80 },
+  93: { x: 44.70, y: 26.70, width: 2.00, height: 4.80 },
+  94: { x: 47.30, y: 26.70, width: 2.00, height: 4.80 },
+  95: { x: 51.40, y: 26.70, width: 2.00, height: 4.80 },
+  96: { x: 53.90, y: 26.70, width: 2.00, height: 4.80 },
+  97: { x: 56.50, y: 26.70, width: 2.00, height: 4.80 },
+  98: { x: 59.00, y: 26.70, width: 2.00, height: 4.80 },
+  99: { x: 61.55, y: 26.70, width: 2.00, height: 4.80 },
 
   // --- FORME IRRÉGULIÈRE : "protection civile" ---
-  9001: {
-    points: [
-      { x: 29.50, y: 20.10 },
-      { x: 34.00, y: 20.10 },
-      { x: 34.00, y: 22.80 },
-      { x: 32.50, y: 24.50 },
-      { x: 29.50, y: 24.50 },
-    ],
-  },
 9006: {
   points: [
     { x: 37.10, y: 41.30 },

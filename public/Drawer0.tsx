@@ -115,7 +115,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
   const handleReservationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!investorName || !email || !phone) {
-      alert(t.fillRequiredFields);
+      alert(isRtl ? "يرجى ملء الحقول الإجبارية" : "Veuillez remplir les champs obligatoires");
       return;
     }
 
@@ -164,7 +164,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
   const handleCompanyContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!contactName || !contactEmail || !contactMessage) {
-      alert(t.fillAllFields);
+      alert(isRtl ? "يرجى ملء جميع الحقول" : "Veuillez remplir tous les champs");
       return;
     }
 
@@ -277,12 +277,12 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
             <div className="flex-1">
               <h3 className="text-xl font-bold text-gray-900 leading-tight">
                 {isAvailable
-                  ? (t.noCompanyInstalled)
+                  ? (isRtl ? "Aucune entreprise installée" : "Aucune entreprise installée")
                   : lot.companyName}
               </h3>
               <p className="text-sm text-gray-500 mt-1">
                 {isAvailable
-                  ? (`${t.lotNumberLabel} ${lot.number}`)
+                  ? (isRtl ? `البقعة الصناعية رقم ${lot.number}` : `Lot de terre N° ${lot.number}`)
                   : (lot.activity || t.legendRoadGreen)}
               </p>
               <div className="mt-2.5">{getStatusBadge(lot.status)}</div>
@@ -319,10 +319,10 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
             </div>
             <div className={isRtl ? "text-right" : "text-left"}>
               <span className="text-xs font-semibold text-gray-400 block tracking-wide">
-                {t.sectorActivity}
+                {isRtl ? "القطاع النشاطي" : "Secteur d'activité"}
               </span>
               <span className="text-sm font-bold text-gray-800 truncate block">
-                {lot.sector || t.industrialDefault}
+                {lot.sector || (isRtl ? "صناعي" : "Industriel")}
               </span>
             </div>
             <div className={isRtl ? "text-right" : "text-left"}>
@@ -352,7 +352,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
               {lot.services && lot.services.length > 0 && (
                 <div className={`flex flex-col gap-2 ${isRtl ? "text-right" : "text-left"}`}>
                   <h4 className="text-xs font-bold text-gray-400 tracking-wider">
-                    {t.productsServices}
+                    {isRtl ? "المنتجات والخدمات" : "Produits & Services"}
                   </h4>
                   <div className={`flex flex-wrap gap-1.5 ${isRtl ? "flex-row-reverse" : ""}`}>
                     {lot.services.map((service, index) => (
@@ -391,7 +391,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
               <div className="flex flex-col gap-4 border-t border-gray-100 pt-5">
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-bold text-gray-400 tracking-wider">
-                    {t.resourcesSocial}
+                    {isRtl ? "المستندات والتواصل الاجتماعي" : "Ressources & Réseaux Sociaux"}
                   </h4>
                 </div>
 
@@ -404,14 +404,14 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                     onClick={(e) => {
                       if (getCatalogueUrl() === "#") {
                         e.preventDefault();
-                        alert(t.catalogueNotAvailable);
+                        alert(isRtl ? "الكتالوج غير متوفر حالياً لهذه الشركة." : "Le catalogue PDF n'est pas configuré pour cette entreprise.");
                       }
                     }}
                     className="flex items-center justify-between p-3 bg-red-50 hover:bg-red-100 border border-red-100 text-red-700 rounded-xl text-xs font-bold transition-all cursor-pointer"
                   >
                     <span className="flex items-center gap-2">
                       <FileText className="w-4 h-4" />
-                      {t.downloadCatalogue}
+                      {isRtl ? "تحميل كتالوج المنتجات (PDF)" : "Télécharger le Catalogue (PDF)"}
                     </span>
                     <Download className="w-3.5 h-3.5" />
                   </a>
@@ -470,27 +470,27 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                     className="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200/50 py-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
                     <Mail className="w-4 h-4" />
-                    {t.contactCompanyDirect}
+                    {isRtl ? "ارسل رسالة مباشرة للشركة" : "Contacter l'entreprise directement"}
                   </button>
                 ) : (
                   <form onSubmit={handleCompanyContactSubmit} className="bg-slate-50 p-4 border border-slate-200/50 rounded-2xl flex flex-col gap-3">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-slate-700">
-                        {t.directMessage}
+                        {isRtl ? "رسالة جديدة" : "Message Direct"}
                       </span>
                       <button
                         type="button"
                         onClick={() => setShowCompanyContact(false)}
                         className="text-xs text-slate-400 hover:text-slate-600"
                       >
-                        {t.cancel}
+                        {isRtl ? "إلغاء" : "Annuler"}
                       </button>
                     </div>
 
                     {isContactSuccess ? (
                       <div className="p-3 bg-emerald-100 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center gap-2">
                         <CheckCircle className="w-4.5 h-4.5" />
-                        <span>{t.messageSentSuccess}</span>
+                        <span>{isRtl ? "تم إرسال الرسالة بنجاح!" : "Message envoyé avec succès !"}</span>
                       </div>
                     ) : (
                       <>
@@ -499,7 +499,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                           required
                           value={contactName}
                           onChange={(e) => setContactName(e.target.value)}
-                          placeholder={t.fullName}
+                          placeholder={isRtl ? "الاسم الكامل" : "Nom complet"}
                           className="w-full bg-white border border-slate-200 rounded-lg py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500"
                         />
                         <input
@@ -507,7 +507,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                           required
                           value={contactEmail}
                           onChange={(e) => setContactEmail(e.target.value)}
-                          placeholder={t.emailAddress}
+                          placeholder={isRtl ? "البريد الإلكتروني" : "Adresse email"}
                           className="w-full bg-white border border-slate-200 rounded-lg py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500"
                         />
                         <textarea
@@ -515,7 +515,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                           rows={3}
                           value={contactMessage}
                           onChange={(e) => setContactMessage(e.target.value)}
-                          placeholder={t.yourMessage}
+                          placeholder={isRtl ? "نص الرسالة..." : "Votre message..."}
                           className="w-full bg-white border border-slate-200 rounded-lg py-2 px-3 text-xs focus:ring-2 focus:ring-blue-500 leading-normal"
                         />
                         <button
@@ -523,7 +523,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow-sm"
                         >
                           <Send className="w-3.5 h-3.5" />
-                          {t.send}
+                          {isRtl ? "إرسال" : "Envoyer"}
                         </button>
                       </>
                     )}
@@ -546,7 +546,14 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                   <div className="flex flex-col sm:flex-row gap-2.5">
                     <button
                       onClick={() => setShowReservationForm(true)}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/10 cursor-pointer transition-all uppercase"
+                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/10 cursor-pointer transition-all uppercase"
+                    >
+                      <Building className="w-4 h-4" />
+                      {t.buyThisLot}
+                    </button>
+                    <button
+                      onClick={() => setShowReservationForm(true)}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/10 cursor-pointer transition-all uppercase"
                     >
                       <FileText className="w-4 h-4" />
                       {t.requestLotBtn}
@@ -557,27 +564,27 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                 <form onSubmit={handleReservationSubmit} className="bg-slate-50 p-4 border border-slate-200/50 rounded-2xl flex flex-col gap-3">
                   <div className="flex items-center justify-between border-b border-slate-200/50 pb-2 mb-1">
                     <span className="text-xs font-extrabold text-slate-800">
-                      {t.requestLotFormTitle}
+                      {isRtl ? "طلب حجز واستثمار" : "Formulaire d'Investissement"}
                     </span>
                     <button
                       type="button"
                       onClick={() => setShowReservationForm(false)}
                       className="text-xs font-bold text-slate-400 hover:text-slate-600"
                     >
-                      {t.cancel}
+                      {isRtl ? "إلغاء" : "Annuler"}
                     </button>
                   </div>
 
                   {isReservedSuccess ? (
                     <div className="p-3.5 bg-emerald-100 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center gap-2">
                       <CheckCircle className="w-5 h-5 shrink-0" />
-                      <span>{t.investmentSuccessMessage}</span>
+                      <span>{isRtl ? "تم إرسال طلبكم بنجاح! سيقوم فريق الاستثمار بالاتصال بكم." : "Votre demande a été soumise avec succès ! Un conseiller vous contactera."}</span>
                     </div>
                   ) : (
                     <div className="flex flex-col gap-2.5">
                       {/* Name */}
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase">{t.investorFullName} *</label>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase">{isRtl ? "الاسم الكامل للمستثمر" : "Nom complet de l'investisseur"} *</label>
                         <input
                           type="text"
                           required
@@ -590,7 +597,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
 
                       {/* Company Name */}
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase">{t.companyNameLabel}</label>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase">{isRtl ? "اسم الشركة / المؤسسة" : "Nom de l'entreprise"}</label>
                         <input
                           type="text"
                           value={companyName}
@@ -603,7 +610,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                       {/* Contact grid */}
                       <div className="grid grid-cols-2 gap-2">
                         <div className="flex flex-col gap-1">
-                          <label className="text-[10px] font-bold text-slate-400 uppercase">{t.emailLabel} *</label>
+                          <label className="text-[10px] font-bold text-slate-400 uppercase">{isRtl ? "البريد الإلكتروني" : "Email"} *</label>
                           <input
                             type="email"
                             required
@@ -614,7 +621,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                           />
                         </div>
                         <div className="flex flex-col gap-1">
-                          <label className="text-[10px] font-bold text-slate-400 uppercase">{t.phoneLabel} *</label>
+                          <label className="text-[10px] font-bold text-slate-400 uppercase">{isRtl ? "الهاتف" : "Téléphone"} *</label>
                           <input
                             type="tel"
                             required
@@ -628,7 +635,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
 
                       {/* Activity */}
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase">{t.plannedActivity}</label>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase">{isRtl ? "النشاط الصناعي المزمع إنشاؤه" : "Activité industrielle envisagée"}</label>
                         <input
                           type="text"
                           value={activity}
@@ -640,12 +647,12 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
 
                       {/* Project description */}
                       <div className="flex flex-col gap-1">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase">{t.projectDescriptionLabel}</label>
+                        <label className="text-[10px] font-bold text-slate-400 uppercase">{isRtl ? "وصف موجز للمشروع الاستثماري" : "Description succincte du projet"}</label>
                         <textarea
                           rows={3}
                           value={projectDescription}
                           onChange={(e) => setProjectDescription(e.target.value)}
-                          placeholder={t.projectDescriptionPlaceholder}
+                          placeholder={isRtl ? "عدد مناصب الشغل المرتقبة، حجم الاستثمار..." : "Montant d'investissement estimé, emplois à créer..."}
                           className="w-full bg-white border border-slate-200 rounded-lg py-2 px-3 text-xs leading-normal"
                         />
                       </div>
@@ -655,7 +662,7 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
                         type="submit"
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg text-xs mt-1 transition-all"
                       >
-                        {t.submitRequest}
+                        {isRtl ? "إرسال طلب الاستثمار" : "Soumettre ma demande d'achat"}
                       </button>
                     </div>
                   )}
@@ -682,7 +689,9 @@ export default function Drawer({ language, lot, onClose, onSubmitRequest }: Draw
           <button
             onClick={() => {
               alert(
-                `${t.downloadingPdf} ${lot.number}...`
+                isRtl
+                  ? `جاري تحميل بطاقة البقعة ${lot.number} بصيغة PDF...`
+                  : `Téléchargement de la fiche technique du Lot ${lot.number} au format PDF...`
               );
             }}
             className="w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all duration-150 cursor-pointer"
