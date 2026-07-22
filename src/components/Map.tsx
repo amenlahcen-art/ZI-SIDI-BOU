@@ -50,8 +50,13 @@ export default function Map({
     if (!selectedLot || !transformRef.current) return;
 
     // Calculate center of the selected lot in the 0-100 coordinate space
-    const lotCenterX = selectedLot.x + selectedLot.width / 2;
-    const lotCenterY = selectedLot.y + selectedLot.height / 2;
+    // (moyenne des points pour un polygone, sinon centre du rectangle)
+    const lotCenterX = selectedLot.points && selectedLot.points.length > 0
+      ? selectedLot.points.reduce((sum, p) => sum + p.x, 0) / selectedLot.points.length
+      : selectedLot.x + selectedLot.width / 2;
+    const lotCenterY = selectedLot.points && selectedLot.points.length > 0
+      ? selectedLot.points.reduce((sum, p) => sum + p.y, 0) / selectedLot.points.length
+      : selectedLot.y + selectedLot.height / 2;
 
     const scale = 3.8; // Deep zoom scale to make detail clear
 
@@ -85,8 +90,12 @@ export default function Map({
 
     if (matchedLot) {
       // Calculate center coordinates
-      const lotCenterX = matchedLot.x + matchedLot.width / 2;
-      const lotCenterY = matchedLot.y + matchedLot.height / 2;
+      const lotCenterX = matchedLot.points && matchedLot.points.length > 0
+        ? matchedLot.points.reduce((sum, p) => sum + p.x, 0) / matchedLot.points.length
+        : matchedLot.x + matchedLot.width / 2;
+      const lotCenterY = matchedLot.points && matchedLot.points.length > 0
+        ? matchedLot.points.reduce((sum, p) => sum + p.y, 0) / matchedLot.points.length
+        : matchedLot.y + matchedLot.height / 2;
 
       const scale = 3.5;
       const wrapper = transformRef.current.instance.wrapperComponent;
@@ -251,6 +260,14 @@ export default function Map({
                     ? 0.18
                     : 0.08;
 
+                  // Centre du lot : moyenne des points pour un polygone, sinon centre du rectangle
+                  const centerX = lot.points && lot.points.length > 0
+                    ? lot.points.reduce((sum, p) => sum + p.x, 0) / lot.points.length
+                    : lot.x + lot.width / 2;
+                  const centerY = lot.points && lot.points.length > 0
+                    ? lot.points.reduce((sum, p) => sum + p.y, 0) / lot.points.length
+                    : lot.y + lot.height / 2;
+
                   return (
                     <g
                       key={lot.id}
@@ -258,35 +275,57 @@ export default function Map({
                       className="transition-all duration-150"
                     >
                       {/* Active click & hover interactive polygon boundary */}
-                      <rect
-                        id={`lot-rect-${lot.id}`}
-                        x={lot.x}
-                        y={lot.y}
-                        width={lot.width}
-                        height={lot.height}
-                        rx={0.18}
-                        ry={0.18}
-                        fill={fill}
-                        fillOpacity={finalFillOpacity}
-                        stroke={finalStroke}
-                        strokeWidth={finalStrokeWidth}
-                        filter={isSelected ? "url(#orange-glow)" : undefined}
-                        className="transition-all duration-150 cursor-pointer hover:fill-opacity-80"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelectLot(lot);
-                        }}
-                        onMouseEnter={(e) => handleLotMouseEnter(e, lot)}
-                        onMouseMove={handleLotMouseMove}
-                        onMouseLeave={handleLotMouseLeave}
-                      />
+                      {lot.points && lot.points.length > 0 ? (
+                        // Forme irrégulière (ex: mosquée, protection civile, STEG...)
+                        <polygon
+                          id={`lot-rect-${lot.id}`}
+                          points={lot.points.map((p) => `${p.x},${p.y}`).join(" ")}
+                          fill={fill}
+                          fillOpacity={finalFillOpacity}
+                          stroke={finalStroke}
+                          strokeWidth={finalStrokeWidth}
+                          filter={isSelected ? "url(#orange-glow)" : undefined}
+                          className="transition-all duration-150 cursor-pointer hover:fill-opacity-80"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSelectLot(lot);
+                          }}
+                          onMouseEnter={(e) => handleLotMouseEnter(e, lot)}
+                          onMouseMove={handleLotMouseMove}
+                          onMouseLeave={handleLotMouseLeave}
+                        />
+                      ) : (
+                        // Rectangle classique (cas normal, la grande majorité des lots)
+                        <rect
+                          id={`lot-rect-${lot.id}`}
+                          x={lot.x}
+                          y={lot.y}
+                          width={lot.width}
+                          height={lot.height}
+                          rx={0.18}
+                          ry={0.18}
+                          fill={fill}
+                          fillOpacity={finalFillOpacity}
+                          stroke={finalStroke}
+                          strokeWidth={finalStrokeWidth}
+                          filter={isSelected ? "url(#orange-glow)" : undefined}
+                          className="transition-all duration-150 cursor-pointer hover:fill-opacity-80"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSelectLot(lot);
+                          }}
+                          onMouseEnter={(e) => handleLotMouseEnter(e, lot)}
+                          onMouseMove={handleLotMouseMove}
+                          onMouseLeave={handleLotMouseLeave}
+                        />
+                      )}
 
                       {/* Display beautiful vector Lot Numbers directly inside parcelles */}
                       {showLabels && (
                         <>
                           <text
-                            x={lot.x + lot.width / 2}
-                            y={lot.y + lot.height / 2 + 0.6}
+                            x={centerX}
+                            y={centerY + 0.6}
                             textAnchor="middle"
                             fill={isFiltered && isTrancheHighlighted ? "#1e293b" : "#94a3b8"}
                             fontSize={0.85}
@@ -303,8 +342,8 @@ export default function Map({
                             <g className="pointer-events-none select-none transition-opacity duration-200" opacity={isFiltered && isTrancheHighlighted ? 1 : 0.35}>
                               {/* Circle Background */}
                               <circle
-                                cx={lot.x + lot.width / 2}
-                                cy={lot.y + lot.height / 2 - 0.7}
+                                cx={centerX}
+                                cy={centerY - 0.7}
                                 r={0.6}
                                 fill="#2563eb"
                                 stroke="#ffffff"
@@ -312,8 +351,8 @@ export default function Map({
                               />
                               {/* Logo text letter(s) */}
                               <text
-                                x={lot.x + lot.width / 2}
-                                y={lot.y + lot.height / 2 - 0.7 + 0.16}
+                                x={centerX}
+                                y={centerY - 0.7 + 0.16}
                                 textAnchor="middle"
                                 fill="#ffffff"
                                 fontSize={0.4}

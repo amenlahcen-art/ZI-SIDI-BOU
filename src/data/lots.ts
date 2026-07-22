@@ -177,13 +177,13 @@ export function generateLots(): Lot[] {
 
     if (id >= 231) {
       tranche = "TR III"; // Left
-      trancheXOffset = 35.5;
+      trancheXOffset = 3.5;
       cols = 10;
       localCol = (id - 231) % cols;
       localRow = Math.floor((id - 231) / cols);
     } else if (id >= 101) {
       tranche = "TR II"; // Center
-      trancheXOffset = 3.5;
+      trancheXOffset = 35.5;
       cols = 10;
       localCol = (id - 101) % cols;
       localRow = Math.floor((id - 101) / cols);
@@ -334,6 +334,7 @@ const finalHeight = geometry?.height ?? cellH;
       y: finalY,
       width: finalWidth,
       height: finalHeight,
+      points: geometry?.points,
       lat: lotLat,
       lng: lotLng
     });
@@ -354,7 +355,49 @@ const finalHeight = geometry?.height ?? cellH;
     },
     { available: 0, occupied: 0, reserved: 0, under_construction: 0, equipment: 0 }
   );
-
+// --- Équipements spéciaux hors numérotation 1-361 (mosquée, protection civile, STEG...) ---
+  const specialGeometry = lotGeometry[9001];
+  if (specialGeometry) {
+    lots.push({
+      id: 9001,
+      number: "PC2",
+      status: LotStatus.EQUIPMENT,
+      tranche: "TR II", // à ajuster selon la vraie tranche où se trouve le bâtiment
+      sector: "Équipement",
+      surface: 0,
+      road: "",
+      situation: "Standard",
+      price: "",
+      points: specialGeometry.points,
+      x: specialGeometry.x ?? 0,
+      y: specialGeometry.y ?? 0,
+      width: specialGeometry.width ?? 0,
+      height: specialGeometry.height ?? 0,
+      lat: 0,
+      lng: 0,
+    });
+  }
+  const geometry9004 = lotGeometry[9004];
+  if (geometry9004) {
+    lots.push({
+      id: 9004,
+      number: "PC", // ou le nom réel du bâtiment si tu le connais
+      status: LotStatus.EQUIPMENT,
+      tranche: "TR II",
+      sector: "Équipement",
+      surface: 0,
+      road: "",
+      situation: "Standard",
+      price: "",
+      points: geometry9004.points,
+      x: geometry9004.x ?? 0,
+      y: geometry9004.y ?? 0,
+      width: geometry9004.width ?? 0,
+      height: geometry9004.height ?? 0,
+      lat: 0,
+      lng: 0,
+    });
+  }
   // FILTRE TEMPORAIRE DE TEST : n'affiche que les lots déjà tracés avec la vraie géométrie
   // (à retirer une fois tous les 361 lots tracés)
   return lots.filter(lot => lotGeometry[lot.id] !== undefined);

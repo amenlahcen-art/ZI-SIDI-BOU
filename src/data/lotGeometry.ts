@@ -9,10 +9,14 @@
 // procédural de position dans lots.ts.
 
 export interface LotGeometry {
-  x: number;      // % depuis la gauche du plan
-  y: number;      // % depuis le haut du plan
-  width: number;  // % de largeur
-  height: number; // % de hauteur
+  // Cas normal : rectangle simple
+  x?: number;      // % depuis la gauche du plan
+  y?: number;      // % depuis le haut du plan
+  width?: number;  // % de largeur
+  height?: number; // % de hauteur
+  // Cas forme irrégulière (mosquée, protection civile, STEG...) :
+  // liste de points qui dessinent le contour exact, dans l'ordre (ex: sens horaire)
+  points?: { x: number; y: number }[];
 }
 
 export const lotGeometry: Record<number, LotGeometry> = {
@@ -31,9 +35,40 @@ export const lotGeometry: Record<number, LotGeometry> = {
   18: { x: 57.90, y: 60.50, width: 5.50, height: 7.10 },
   // --- BLOC : lots 24,25,26,27 ---
   27: { x: 37.40, y: 51.30, width: 5.30, height: 8.30 },
-  26: { x: 43.30, y: 51.30, width: 5.60, height: 8.30 },
-  25: { x: 51.70, y: 51.30, width: 5.75, height: 8.30 },
+  26: {
+  points: [
+    { x: 43.30, y: 51.30 },  // haut-gauche
+    { x: 46.50, y: 51.30 },  // haut, juste avant l'encoche
+    { x: 46.50, y: 55.00 },  // coin en diagonale (comme sur le plan)
+    { x: 48.90, y: 55.00 },  // rejoint le bord droit
+    { x: 48.90, y: 59.60 },  // bas-droit
+    { x: 43.30, y: 59.60 },  // bas-gauche
+  ],
+},
+25: {
+  points: [
+    { x: 54.27, y: 51.30 },
+    { x: 57.45, y: 51.30 },
+    { x: 57.45, y: 59.60 },
+    { x: 51.70, y: 59.60 },
+    { x: 51.70, y: 55.00 },
+    { x: 53.30, y: 52.70 },  // suit mieux la diagonale réelle
+    { x: 54.00, y: 51.60 },  // rejoint le haut, juste avant l'encoche
+  ],
+},
   24: { x: 58.17, y: 51.30, width: 5.25, height: 8.30 },
+
+  // --- FORME IRRÉGULIÈRE : "protection civile" ---
+  9001: {
+    points: [
+      { x: 29.50, y: 20.10 },
+      { x: 34.00, y: 20.10 },
+      { x: 34.00, y: 22.80 },
+      { x: 32.50, y: 24.50 },
+      { x: 29.50, y: 24.50 },
+    ],
+  },
+
 
   // --- Prochains blocs à tracer (dans l'ordre) ---
   // TODO: 15,16,17,18
