@@ -57,6 +57,21 @@ export const lotGeometry: Record<number, LotGeometry> = {
   ],
 },
   24: { x: 58.17, y: 51.30, width: 5.25, height: 8.30 },
+      // --- BLOC : lots 41,42,43,44,45,46 ---
+  41: { x: 41.00, y: 41.30, width: 3.00, height: 6.50 },
+  42: { x: 44.50, y: 41.30, width: 3.00, height: 6.50 },
+  43: { x: 48.05, y: 41.30, width: 4.50, height: 4.10 },
+  44: { x: 53.15, y: 41.30, width: 3.00, height: 6.50 },
+  45: { x: 56.70, y: 41.30, width: 3.00, height: 6.50 },
+  46: { x: 60.35, y: 41.30, width: 3.20, height: 6.50 },
+  // --- BLOC : lots 59,60,61,62,63,64,65 ---
+  65: { x: 37.15, y: 34.00, width: 3.20, height: 6.50 },
+  64: { x: 41.05, y: 34.00, width: 3.20, height: 6.50 },
+  63: { x: 44.90, y: 34.00, width: 3.20, height: 6.50 },
+  62: { x: 48.70, y: 34.00, width: 3.20, height: 6.50 },
+  61: { x: 52.60, y: 34.00, width: 3.20, height: 6.50 },
+  60: { x: 56.50, y: 34.00, width: 3.20, height: 6.50 },
+  59: { x: 60.32, y: 34.00, width: 3.20, height: 6.50 },
 
   // --- FORME IRRÉGULIÈRE : "protection civile" ---
   9001: {
