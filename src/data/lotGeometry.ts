@@ -52,8 +52,8 @@ export const lotGeometry: Record<number, LotGeometry> = {
     { x: 57.45, y: 59.60 },
     { x: 51.70, y: 59.60 },
     { x: 51.70, y: 55.00 },
-    { x: 53.30, y: 52.70 },  // suit mieux la diagonale réelle
-    { x: 54.00, y: 51.60 },  // rejoint le haut, juste avant l'encoche
+    { x: 53.00, y: 55.00 },  // resserré vers la droite (était 53.30)
+    { x: 54.30, y: 53.00 },  // resserré vers le haut/droite (était 54.00)
   ],
 },
   24: { x: 58.17, y: 51.30, width: 5.25, height: 8.30 },
