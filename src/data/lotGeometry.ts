@@ -83,7 +83,16 @@ export const lotGeometry: Record<number, LotGeometry> = {
       { x: 29.50, y: 24.50 },
     ],
   },
-
+9006: {
+  points: [
+    { x: 37.10, y: 41.30 },
+    { x: 40.30, y: 41.30 },
+    { x: 40.30, y: 47.80 },
+    { x: 38.00, y: 47.80 },
+    { x: 38.00, y: 47.30 },
+    { x: 37.10, y: 47.30 },
+  ],
+},
 
   // --- Prochains blocs à tracer (dans l'ordre) ---
   // TODO: 15,16,17,18

@@ -398,6 +398,27 @@ const finalHeight = geometry?.height ?? cellH;
       lng: 0,
     });
   }
+  const geometry9006 = lotGeometry[9006];
+  if (geometry9006) {
+    lots.push({
+      id: 9006,
+      number: "CR", // ou le nom que tu veux (Centre de Recherche)
+      status: LotStatus.EQUIPMENT,
+      tranche: "TR II",
+      sector: "Équipement",
+      surface: 0,
+      road: "",
+      situation: "Standard",
+      price: "",
+      points: geometry9006.points,
+      x: geometry9006.x ?? 0,
+      y: geometry9006.y ?? 0,
+      width: geometry9006.width ?? 0,
+      height: geometry9006.height ?? 0,
+      lat: 0,
+      lng: 0,
+    });
+  }
   // FILTRE TEMPORAIRE DE TEST : n'affiche que les lots déjà tracés avec la vraie géométrie
   // (à retirer une fois tous les 361 lots tracés)
   return lots.filter(lot => lotGeometry[lot.id] !== undefined);
