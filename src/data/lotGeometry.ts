@@ -33,6 +33,7 @@ export const lotGeometry: Record<number, LotGeometry> = {
   16: { x: 43.50, y: 60.50, width: 5.50, height: 7.10 },
   17: { x: 51.70, y: 60.50, width: 5.50, height: 7.10 },
   18: { x: 57.90, y: 60.50, width: 5.50, height: 7.10 },
+  19: { x: 63.50, y: 60.50, width: 5.50, height: 7.10 },
   // --- BLOC : lots 24,25,26,27 ---
   27: { x: 37.40, y: 51.30, width: 5.30, height: 8.30 },
   26: {
