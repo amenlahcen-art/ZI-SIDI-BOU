@@ -27,7 +27,6 @@ export interface Lot {
     website: string;
   };
   gallery?: string[];
-  [key: string]: any;
   // SVG relative coordinate representation (0 to 100)
   x: number; // top-left X percentage on map
   y: number; // top-left Y percentage on map
