@@ -959,6 +959,18 @@ const filteredCompanyLots = useMemo(() => {
               <span>{isRtl ? "إدارة البقع العقارية" : "Plan Cadastral (Lots)"}</span>
             </button>
 
+            {/* Map Editor */}
+            <button
+              onClick={() => { setAdminTab("mapeditor"); setMobileMenuOpen(false); }}
+              className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
+                adminTab === "mapeditor"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/10"
+                  : "text-slate-400 hover:text-white hover:bg-slate-800"
+              }`}
+            >
+              <MapPin className="w-4 h-4 shrink-0" />
+              <span>Cartographie des Lots</span>
+            </button>
             {/* Companies */}
             <button
               onClick={() => { setAdminTab("companies"); setMobileMenuOpen(false); }}

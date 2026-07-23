@@ -1,0 +1,52 @@
+{
+  "hash": "70361ae0",
+  "configHash": "69b74518",
+  "lockfileHash": "f2e58433",
+  "browserHash": "8fd78ae8",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "0ae4dc67",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "d719beb4",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "6a64a056",
+      "needsInterop": true
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "85734923",
+      "needsInterop": false
+    },
+    "motion/react": {
+      "src": "../../node_modules/motion/dist/es/react.mjs",
+      "file": "motion_react.js",
+      "fileHash": "2b99836c",
+      "needsInterop": false
+    },
+    "react-zoom-pan-pinch": {
+      "src": "../../node_modules/react-zoom-pan-pinch/dist/index.esm.js",
+      "file": "react-zoom-pan-pinch.js",
+      "fileHash": "f56d4940",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-K6G5J56I": {
+      "file": "chunk-K6G5J56I.js"
+    },
+    "chunk-SRRNBJOT": {
+      "file": "chunk-SRRNBJOT.js"
+    }
+  }
+}
